@@ -1,0 +1,28 @@
+{
+    "name": {
+        "first_name":"Ranjan",
+        "last_name":"Swain"
+    },
+    "department": {
+        "department_name":"Software Developer"
+    },
+    "salary": {
+        "level": {
+            "high_level":true,
+            "low_level":false,
+            "amount":250000
+        }
+    },
+    "address": {
+        "street_name": {
+            "house_no":"12/B",
+            "locality":"IIT",
+            "landmark":"Lok Sabha"
+        },
+        "city":"Delhi"
+    },
+    "family_members": [
+        "Parents"
+    ]
+    
+}
