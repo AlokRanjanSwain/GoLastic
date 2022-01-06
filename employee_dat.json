@@ -1,4 +1,3 @@
-{"index":{"_index": "employee_catalogue"}}
 {
     "name": {
         "first_name":"Rahul",
@@ -9,8 +8,8 @@
     },
     "salary": {
         "level": {
-            "high_level":"true",
-            "low_level":"false",
+            "high_level":true,
+            "low_level":false,
             "amount":23000
         }
     },

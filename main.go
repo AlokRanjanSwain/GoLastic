@@ -21,8 +21,6 @@ func GetESClient() (*elastic.Client, error) {
 		elastic.SetSniff(false),
 		elastic.SetHealthcheck(false))
 
-	fmt.Println("ES initialized...")
-
 	return client, err
 
 }
@@ -43,18 +41,9 @@ func readData() {
 	var employees []Employee
 
 	/* Creating Query */
-	searchSource := elastic.NewSearchSource()
-	searchSource.Query(elastic.NewMatchQuery("name.first_name", "Rahul"))
-
-	// /* this block will basically print out the es query */
-	// queryStr, err1 := searchSource.Source()
-	// queryJs, err2 := json.Marshal(queryStr)
-
-	// if err1 != nil || err2 != nil {
-	// 	fmt.Println("[esclient][GetResponse]err during query marshal=", err1, err2)
-	// }
-	// /* Generated Query */
-	// fmt.Println("[esclient]Final ESQuery=\n", string(queryJs))
+	searchSource := amntQuer()
+	// searchSource := elastic.NewSearchSource()
+	// searchSource.Query(elastic.NewMatchQuery("name.first_name", "Rahul"))
 
 	/* searching with query */
 	searchService := esclient.Search().Index("employee_catalogue").SearchSource(searchSource)
@@ -70,17 +59,25 @@ func readData() {
 		var employee Employee
 		err := json.Unmarshal(hit.Source, &employee)
 		if err != nil {
-			fmt.Println("[Getting Students][Unmarshal] Err=", err)
+			fmt.Println("[Getting Employees][Unmarshal] Err=", err)
 		}
+
 		employees = append(employees, employee)
 	}
 
 	if err != nil {
 		fmt.Println("Fetching student fail: ", err)
 	} else {
-		for _, s := range employees {
-			fmt.Printf("Student found Name: %s \n", s.Name)
+		for _, emp := range employees {
+			fmt.Printf("Employee Name: %s \n", emp.Name)
+			//fmt.Printf("salary details : %t , %t, %d ", emp.Salary.Level.HighLevel, emp.Salary.Level.LowLevel, emp.Salary.Level.Amount)
 		}
 	}
 
+}
+
+func amntQuer() *elastic.SearchSource {
+	searchSource := elastic.NewSearchSource()
+	searchSource.Query(elastic.NewRangeQuery("salary.level.amount").Gte(20000))
+	return searchSource
 }
