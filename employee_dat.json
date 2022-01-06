@@ -1,0 +1,31 @@
+{"index":{"_index": "employee_catalogue"}}
+{
+    "name": {
+        "first_name":"Rahul",
+        "last_name":"Baba"
+    },
+    "department": {
+        "department_name":"HR"
+    },
+    "salary": {
+        "level": {
+            "high_level":"true",
+            "low_level":"false",
+            "amount":23000
+        }
+    },
+    "address": {
+        "street_name": {
+            "house_no":"12/A",
+            "locality":"IIT",
+            "landmark":"Rajya Sabha"
+        },
+        "city":"Delhi"
+    },
+    "family_members": [
+        "Parents",
+        "Spouse",
+        "Son"
+    ]
+    
+}
