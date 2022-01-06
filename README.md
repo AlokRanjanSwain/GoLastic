@@ -112,14 +112,25 @@ POST employee_catalogue/_doc
 }
 
 ```
-6. You can run go file using
+6. Initialize module for GO project
+ ```
+go mod init module_name
+```
+7. For integrating Golang with Elastic, the mentioned package can be used 
+    https://github.com/olivere/elastic
+8. To import the module use on CLI [command line interface] on the project folder
+
+```
+go get "github.com/olivere/elastic/v7"
+```
+9. You can run go file using
 ```
 go run ./     
 OR
 go run main.go employee_struct.go
 ```
 
-7. The reason of Using Golang is because it is the new generation language, easy to use. 
-8. ElasticSearch is the type of NoSQL database and is open source.
+10. The reason of Using Golang is because it is the new generation language, easy to use. 
+    ElasticSearch is the type of NoSQL database and is open source.
 
 
