@@ -90,8 +90,8 @@ POST employee_catalogue/_doc
     },
     "salary": {
         "level": {
-            "high_level":"true",
-            "low_level":"false",
+            "high_level":true,
+            "low_level":false,
             "amount":23000
         }
     },
@@ -119,5 +119,7 @@ OR
 go run main.go employee_struct.go
 ```
 
+7. The reason of Using Golang is because it is the new generation language, easy to use. 
+8. ElasticSearch is the type of NoSQL database and is open source.
 
 
