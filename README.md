@@ -1,7 +1,7 @@
 # GoLastic [Golang+ElasticSearch]
 1. Install elastic search, Kibana, and Golang for your OS. Its pretty easy to do with help of google
 2. Run elastic search and kibana on local host
-3. To use kibana dev tools. log on to http://localhost:5601/app/dev_tools#/console
+3. To use kibana dev tools. log on to [Kibana Local Console](http://localhost:5601/app/dev_tools#/console)
 4. Create employee_catalogue [index] on elastic search using Kibana Console with mappings provided in empoyee_map.json
 ```
 PUT employee_catalogue/
