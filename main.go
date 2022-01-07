@@ -10,11 +10,20 @@ import (
 )
 
 func main() {
-	//fmt.Println("Hello World")
+	/* Normal Print Operation */
+	fmt.Println("Hello There !!!,\nThis is a demo of CRUD Operation using Golang with Elastic Search")
 
-	insertData()
+	/* Inserating the Data */
+	//insertData()
+
+	/* Reading The Data */
 	//readData()
+
+	/* Updating the Data */
 	//updateData()
+
+	/* Deleteing the Data */
+	deleteData()
 
 }
 
@@ -114,7 +123,7 @@ func insertData() {
 	/* casting it to employee structure : Not Necessary Though */
 	var employee Employee
 	_ = json.Unmarshal(data, &employee)
-	fmt.Println("employee name: ", employee.Name)
+	// fmt.Println("employee name: ", employee.Name)
 
 	/* for stringify the json of the defined structure */
 	//dataJSON, _ := json.Marshal(employee)
@@ -146,7 +155,8 @@ func updateData() {
 	query := elastic.NewMatchQuery("name.first_name", "Alok")
 
 	/*Initialize the services */
-	updateService := elastic.NewUpdateByQueryService(elsClient).Index("employee_catalogue").Script(script).Query(query)
+	updateService := elastic.NewUpdateByQueryService(elsClient).
+		Index("employee_catalogue").Script(script).Query(query)
 
 	/* Starting the Update operation */
 	response, err := updateService.Do(ctx)
@@ -155,6 +165,7 @@ func updateData() {
 		panic(err)
 	}
 
+	/*Printing the status & number of updates done */
 	if response.Updated > 0 {
 		fmt.Printf("Updates successfully done on [ %d ] documents \n", response.Updated)
 	} else {
@@ -164,5 +175,22 @@ func updateData() {
 }
 
 func deleteData() {
+	elsClient, ctx := GetESClient()
+	query := elastic.NewMatchQuery("name.first_name", "new_first")
+	deleteService := elastic.NewDeleteByQueryService(elsClient).
+		Index("employee_catalogue").Query(query)
+
+	response, err := deleteService.Do(ctx)
+
+	if err != nil {
+		panic(err)
+	}
+
+	/*Printing the status & number of deletes done */
+	if response.Deleted > 0 {
+		fmt.Printf("Deleted successfully on [ %d ] documents \n", response.Deleted)
+	} else {
+		fmt.Println("No Documents matched with the query. Deleted document: ", response.Deleted)
+	}
 
 }
