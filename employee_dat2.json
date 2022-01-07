@@ -1,23 +1,23 @@
 {
     "name": {
-        "first_name":"Ranjan",
-        "last_name":"Swain"
+        "first_name":"Electron",
+        "last_name":"Atom"
     },
     "department": {
-        "department_name":"Software Developer"
+        "department_name":"Sales"
     },
     "salary": {
         "level": {
-            "high_level":true,
-            "low_level":false,
-            "amount":250000
+            "high_level":false,
+            "low_level":true,
+            "amount":2500
         }
     },
     "address": {
         "street_name": {
-            "house_no":"12/B",
-            "locality":"IIT",
-            "landmark":"Lok Sabha"
+            "house_no":"167",
+            "locality":"DU",
+            "landmark":"Lal Quila"
         },
         "city":"Delhi"
     },

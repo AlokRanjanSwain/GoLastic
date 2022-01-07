@@ -14,6 +14,7 @@ func main() {
 
 	insertData()
 	//readData()
+	//updateData()
 
 }
 
@@ -60,7 +61,6 @@ func readData() {
 	}
 	/* Showing the total hits */
 	fmt.Println("Number of employees meeting the desired criteria: ", searchResult.TotalHits())
-
 	/* populating slice with the results */
 	for _, hit := range searchResult.Hits.Hits {
 
@@ -121,7 +121,8 @@ func insertData() {
 	//js := string(dataJSON)
 
 	js := string(data)
-	fmt.Println("string data", js)
+	// fmt.Println("string data", js)
+
 	_, err := elsClient.Index().
 		Index("employee_catalogue").
 		BodyJson(js).
@@ -132,5 +133,36 @@ func insertData() {
 	}
 
 	fmt.Println(" Data Inserted Successfully")
+
+}
+
+func updateData() {
+	elsClient, ctx := GetESClient()
+
+	/* Creating Script */
+	script := elastic.NewScriptInline("ctx._source.name.first_name = params.name").Lang("painless").Param("name", "new_first")
+
+	/* Creating Match Query : does not do exact matching for String type*/
+	query := elastic.NewMatchQuery("name.first_name", "Alok")
+
+	/*Initialize the services */
+	updateService := elastic.NewUpdateByQueryService(elsClient).Index("employee_catalogue").Script(script).Query(query)
+
+	/* Starting the Update operation */
+	response, err := updateService.Do(ctx)
+
+	if err != nil {
+		panic(err)
+	}
+
+	if response.Updated > 0 {
+		fmt.Printf("Updates successfully done on [ %d ] documents \n", response.Updated)
+	} else {
+		fmt.Println("No Documents matched with the query. Updated document: ", response.Updated)
+	}
+
+}
+
+func deleteData() {
 
 }
