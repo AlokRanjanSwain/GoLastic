@@ -117,7 +117,7 @@ POST employee_catalogue/_doc
 go mod init module_name
 ```
 7. For integrating Golang with Elastic, the mentioned package can be used 
-    https://github.com/olivere/elastic
+    [Olivere Elastic](https://github.com/olivere/elastic)
 8. To import the module use on CLI [command line interface] on the project folder
 
 ```
@@ -129,8 +129,60 @@ go run ./
 OR
 go run main.go employee_struct.go
 ```
+## Notes 
+###### Insert
+Data is inserted by reading Json Files. There are commented lines showing how the same can be done by using structure for the data [Need to assign value and Marshall it to json data]
 
-10. The reason of Using Golang is because it is the new generation language, easy to use. 
-    ElasticSearch is the type of NoSQL database and is open source.
+###### Read
+There are various type of queries (range, match, term ,etc.) which could be used depending upon the situation.\
+**Reminder** In match query, there is no exact matching for string data type.
+
+We either need to
+* Define mappings with field assigned to type **Keyword**
+* Use term query 
+
+###### Update 
+In the demo, update by query is shown. But if document ID is known,the same can be done by Update Service.\
+The Kibana console command for the same is:
+```
+POST employee_catalogue/_update_by_query
+{
+  "script": {
+    "source": "ctx._source.name.first_name=params.name",
+    "lang": "painless",
+    "params": {
+      "name":"new_first"
+    }
+  }
+  , "query": {
+      "match": {
+        "name.first_name": "Alok"
+    }
+  }
+}
+```
+###### Delete
+Similiar to update operation, delete is also done by query in the demo. Other alternative is to do it with delete Service.\
+The Kibana console command for the same is:
+```
+POST employee_catalogue/_delete_by_query
+{
+  "query":{
+    "match":{
+      "name.first_name":"new_first"
+    }
+  }
+}
+```
+
+## Purpose
+
+Both **Golang** and **Elastic Search** is new and trending technology, So it could be used heavily in near future.
+* With **NoSQL** Databases merging as everyone's favorite in DB technology.\It is good to work on some NoSQL technology which is open source, highly scalable and easy to understand.
+* **Golang** gives better concurrency capabilities, which provide light Apps to work more faster. 
+
+I am open to feedbacks, Please let me know if any.
+## Happy Learning  
+
 
 
